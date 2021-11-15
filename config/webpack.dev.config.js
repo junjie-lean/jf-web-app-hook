@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 15:41:40
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 18:20:03
+ * @Last Modified time: 2021-11-15 18:47:58
  */
 
 /**
@@ -30,11 +30,12 @@ module.exports.setDevServer = function (defaultConfig = {}) {
       reconnect: 4,
     },
     compress: true, //gzip
-    // devMiddleware: {
-    //   index: true,
-    //   mimeTypes: { 'text/html': ['html'] },
-    //   publicPath: './',
-    // },
+    devMiddleware: {
+      // index: true,
+      // mimeTypes: { 'text/html': ['html'] },
+      publicPath: '/',
+      // writeToDisk:true,
+    },
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type',
