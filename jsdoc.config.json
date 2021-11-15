@@ -1,0 +1,62 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "readme": "README.md",
+  "sourceType": "module",
+  "source": {
+    "include": ["src", "package.json", "README.md"],
+    "exclude": [
+      "src/config",
+      "src/media",
+      "src/util",
+      "src/test",
+      "src/index.js",
+      "src/test.js"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": ["plugins/markdown"], 
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": true,
+    "useLongnameInNav": false,
+    "showInheritedInNav": true,
+    "defailt": {
+      "includeData": false
+    }
+  },
+  "opts": {
+    "destination": "./dev documentation",
+    "template": "node_modules/docdash",
+    "recurse": true,
+    "encoding": "utf8"
+  },
+  "docdash": {
+    "search": true,
+    "typedefs": true,
+    "collapse": true,
+    "private": false,
+    "sectionOrder": [
+      "Classes",
+      "Modules",
+      "Externals",
+      "Events",
+      "Namespaces",
+      "Mixins",
+      "Tutorials",
+      "Interfaces"
+    ]
+  },
+  "meta": {
+    "title": "前端开发文档"
+  },
+  "menu": {
+    "component": {
+      "class": "menu-item",
+      "id": "component-link"
+    }
+  }
+}
