@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:33:20
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 15:13:29
+ * @Last Modified time: 2021-11-15 17:47:15
  */
 
 /**
@@ -18,14 +18,6 @@ const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const mode =
   process.env.NODE_ENV !== 'production' ? 'development' : 'production';
 
-/**
- * debugLevel 调试等级,输出等级. 0 到 4.
- * 0不输出sourceMap, 打包速度最快;
- * 4输出详细sourceMap,打包构建速度最慢;
- * 不建议修改
- */
-const debugLevel = mode === 'production' ? 0 : 4;
-
 /** 是否是bundle分析模式,用来分析bundle依赖是否有问题. */
 const isOpenAnalyze =
   process.env.ANALYZE_MODE && process.env.ANALYZE_MODE === 'true';
@@ -37,44 +29,11 @@ const smp = new SpeedMeasurePlugin({
   disable: !isMeasure,
 });
 
-const projectName = require('./../package.json').projectName;
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-/* 输出的source-map设置 */
-function setSourceMapAbout(debugLevel) {
-  let stats, devtool;
-  switch (debugLevel) {
-    case 1: {
-      devtool = 'cheap-module-eval-source-map';
-      stats = 'error';
-      break;
-    }
-    case 2: {
-      devtool = 'module-source-map';
-      stats = 'info';
-      break;
-    }
-    case 3: {
-      devtool = 'evel-source-map';
-      stats = 'log';
-      break;
-    }
-    case 4: {
-      devtool = 'eval-source-map';
-      stats = 'verbose';
-      break;
-    }
-    default: {
-      devtool = 'eval';
-      stats = 'none';
-    }
-  }
-  return { devtool, stats };
-}
-
-let config = {
+const config = {
   mode,
-  entry: './src/index.js',
+  entry: path.resolve(__dirname, '../src/index.js'),
   output: {
     path: path.resolve(__dirname, '../build'),
     filename:
@@ -87,15 +46,28 @@ let config = {
         : 'static/js/chunk/dev.[name].js', //dev.c.main.js
     publicPath: './',
   },
-  devtool: setSourceMapAbout(debugLevel).devtool,
-  stats: {
-    assets: false,
-    //忽略ts导入文件是全名检测的警告
-    warningsFilter: /export .* was not found in/,
-  },
-  module: setDefaultModule({ debugLevel, mode }),
-  plugins: setDefaultPlugins({ debugLevel, mode, isOpenAnalyze }),
-  devServer: setDevServer({ stats: setSourceMapAbout(debugLevel).stats }),
+  // devtool: 'eval-source-map',
+  // stats: 'verbose',
+  devtool: 'eval',
+  stats: 'errors-warnings',
+  // stats: {
+  //   assets: false,
+  //   assetsSort: '!size',
+  //   builtAt: false,
+  //   moduleAssets: false,
+  //   nestedModules: false,
+  //   runtimeModules: false,
+  //   dependentModules: false,
+  //   chunks: false,
+  //   errorDetails:true,
+  //   hash: false,
+  //   logging:"error",
+  //   //忽略ts导入文件是全名检测的警告
+  //   warningsFilter: /export .* was not found in/,
+  // },
+  module: setDefaultModule({ mode }),
+  plugins: setDefaultPlugins({ mode, isOpenAnalyze }),
+  devServer: setDevServer(),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json'],
   },

@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:22:01
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 14:30:49
+ * @Last Modified time: 2021-11-15 18:27:35
  */
 
 /**
@@ -30,18 +30,6 @@ module.exports.setDefaultPlugins = function (config = {}, defaultPlugin = []) {
     plugins.push(new CleanWebpackPlugin());
   }
 
-  //hmr热更插件
-  plugins.push(
-    new webpack.HotModuleReplacementPlugin({
-      multiStep: true,
-    })
-  );
-
-  // new webpack.DllReferencePlugin({
-  //   context: __dirname,
-  //   manifest: require("./../public/manifest.json"),
-  // });
-
   //bundleAnalyze
   if (isOpenAnalyze) {
     plugins.push(
@@ -58,7 +46,7 @@ module.exports.setDefaultPlugins = function (config = {}, defaultPlugin = []) {
   plugins.push(
     new HtmlWebpackPlugin({
       title: 'webpack-app',
-      template: 'public/index.html',
+      template: path.resolve(__dirname, '../public/index.html'),
     })
   );
 

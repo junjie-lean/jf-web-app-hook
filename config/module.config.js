@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:22:01
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 15:11:21
+ * @Last Modified time: 2021-11-15 15:55:53
  */
 
 /**
@@ -15,8 +15,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { resolve } = require('path');
 const os = require('os');
 
-module.exports.setDefaultModule = function (config = {}, loaderArr = []) {
-  let rules = [...loaderArr];
+module.exports.setDefaultModule = function (config = {}) {
+  let rules = [];
   let { mode } = config;
 
   const rawLoader = {
