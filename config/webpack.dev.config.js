@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 15:41:40
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 10:08:04
+ * @Last Modified time: 2021-11-16 10:40:52
  */
 
 /**
@@ -53,17 +53,17 @@ module.exports.setDevServer = function (defaultConfig = {}) {
       // // publicPath:  path.join(__dirname, "..", "public"),
       publicPath: '/',
       serveIndex: true,
-      watch: {
+      watch: { 
         poll: 3000,
       },
     },
     // magicHtml: true,
-    watchFiles: {
-      paths: ['src/**/*'],
-      options: {
-        usePolling: 3,
-      },
-    },
+    // watchFiles: {
+    //   paths: ['src/**/*'],
+    //   options: {
+    //     usePolling: 3000,
+    //   },
+    // },
     port: port,
     onAfterSetupMiddleware: () => {
       console.log(`\n\n\n\tServer start up \`http://localhost:${port}\``);
