@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-03-17 09:52:08
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 19:04:56
+ * @Last Modified time: 2021-11-16 09:05:35
  */
 
 import React from 'react';
@@ -14,7 +14,7 @@ import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import reducers from './../../redux/index.reducer';
+import reducers from '../../redux/index.reducer';
 import { persistStore, persistReducer } from 'redux-persist';
 import storageLocal from 'redux-persist/lib/storage';
 import storageSession from 'redux-persist/lib/storage/session';
@@ -64,7 +64,7 @@ export default function App() {
   // }, []);
   return (
     <ConfigProvider locale={zhCN}>
-      <ProfilerMoniter id="react-app-moniter-root" open={false}>
+      <ProfilerMoniter id="react-app-moniter-root" open={false} callback={null}>
         <ContextProvider>
           <BaseRouter />
         </ContextProvider>

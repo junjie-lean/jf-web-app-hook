@@ -2,9 +2,9 @@
  * @Author: junjie.lean
  * @Date: 2020-03-11 14:19:41
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-28 10:00:59
+ * @Last Modified time: 2021-11-16 09:43:17
  */
-
+import React, { Fragment as F } from 'react';
 
 export default function SVG(props) {
   let style = props.style ? { ...props.style } : {};
@@ -26,7 +26,7 @@ export default function SVG(props) {
   if (props.className) {
     _className = `icon ${props.className}`;
   } else {
-    _className = "icon";
+    _className = 'icon';
   }
 
   /**增加点击事件 */
@@ -39,16 +39,17 @@ export default function SVG(props) {
   };
 
   return (
-    <svg
-      title=""
-      className={_className}
-      aria-hidden="true"
-      style={style}
-      onClick={clickHandle}
-    >
-      <use xlinkHref={"#icon-" + props.type}>
-        <title>{props.title || props.type}</title>
-      </use>
-    </svg>
+    <F>
+      <svg
+        className={_className}
+        aria-hidden="true"
+        style={style}
+        onClick={clickHandle}
+      >
+        <use xlinkHref={'#icon-' + props.type}>
+          <title>{props.title || props.type}</title>
+        </use>
+      </svg>
+    </F>
   );
 }

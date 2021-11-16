@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:33:20
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 17:47:15
+ * @Last Modified time: 2021-11-16 09:39:49
  */
 
 /**
@@ -46,9 +46,7 @@ const config = {
         : 'static/js/chunk/dev.[name].js', //dev.c.main.js
     publicPath: './',
   },
-  // devtool: 'eval-source-map',
-  // stats: 'verbose',
-  devtool: 'eval',
+  devtool: 'eval-source-map',
   stats: 'errors-warnings',
   // stats: {
   //   assets: false,
