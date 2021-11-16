@@ -2,10 +2,17 @@
  * @Author: junjie.lean
  * @Date: 2020-03-18 11:00:47
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 11:27:42
+ * @Last Modified time: 2021-11-16 16:13:55
  */
 
-import React, { useEffect, useState, FC, Fragment as F } from 'react';
+import React, {
+  useEffect,
+  useState,
+  FC,
+  Fragment as F,
+  ReactElement,
+  PropsWithChildren,
+} from 'react';
 import './../../style/index.scss';
 import {
   Layout,
@@ -30,11 +37,56 @@ import {
   DownOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
+
 import { useSelector } from 'react-redux';
 const { Header, Sider, Content } = Layout;
 
+/**
+ * @interface
+ */
 interface HomeProps {}
 
+/**
+ * Renders a card around some content.
+ *
+ * ```tsx
+ * <CardB variant="secondary">
+ *     <h5>My Title</h5>
+ *     <p>My content</p>
+ * </CardB>
+ * ```
+ *
+ * The props type is written directly in the function definition:
+ *
+ * ```
+ * export function CardB({
+ *     children,
+ *     variant = "primary",
+ * }: PropsWithChildren<{
+ *     variant: "primary" | "secondary" | "success" | "danger" | "light" | "dark";
+ * }>): ReactElement {
+ *     // ...
+ * }
+ * ```
+ *
+ * This can make the TypeDoc documentation a bit cleaner for very simple components,
+ * but it makes your code less readable.
+ */
+export function CardB({
+  children,
+  variant = 'primary',
+}: PropsWithChildren<{
+  /** The theme of the card. Defaults to `primary`. */
+  variant: 'primary' | 'secondary' | 'success' | 'danger' | 'light' | 'dark';
+}>): ReactElement {
+  return <div className={`card card-${variant}`}>{children}</div>;
+}
+
+/**
+ * @description 测试入口组件
+ * @param props
+ * @returns ReactElement
+ */
 function Home(props: HomeProps) {
   //是否折叠菜单
   const [collapsed, setCollapsed] = useState<boolean>(false);

@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-28 17:05:12
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-08-07 11:09:36
+ * @Last Modified time: 2021-11-16 16:54:30
  */
 
 /**
@@ -12,17 +12,22 @@
  *    callback (function) 选填
  */
 
-import React, { Profiler } from "react";
+import React, { Profiler, PropsWithChildren, ReactElement } from 'react';
 
-const isDev = process.env.NODE_ENV == "development";
+const isDev = process.env.NODE_ENV == 'development';
 
-export default ({ children, open, id, callback }) => {
+export function ProfilerMoniter({
+  children,
+  open,
+  id,
+  callback,
+}: PropsWithChildren<any>): ReactElement {
   if (id == null) {
     throw new Error("调用性能分析组件 'public-profile' 必须添加id属性!");
   }
 
   if (!isDev) {
-    console.warn("生产环境已禁用性能分析组件");
+    console.warn('生产环境已禁用性能分析组件');
   }
 
   if (!callback) {
@@ -30,7 +35,7 @@ export default ({ children, open, id, callback }) => {
       console.log(
         `
         组件id:${id},
-        渲染方式:${phase == "update" ? "更新" : "挂载"},
+        渲染方式:${phase == 'update' ? '更新' : '挂载'},
         渲染耗时:${Math.round(actualDuration * 1000)}μs
         `
       );
@@ -43,4 +48,4 @@ export default ({ children, open, id, callback }) => {
   ) : (
     children
   );
-};
+}

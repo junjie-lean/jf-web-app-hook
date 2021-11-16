@@ -1,0 +1,6 @@
+{
+  "out": "./document",
+  "name": "开发说明文档",
+  "entryPoints": ["./src/exports.js"],
+  "sort": ["source-order"]
+}

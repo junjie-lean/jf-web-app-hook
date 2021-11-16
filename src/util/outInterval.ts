@@ -2,13 +2,12 @@
  * @Author: junjie.lean
  * @Date: 2021-06-28 12:07:38
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 15:16:01
+ * @Last Modified time: 2021-11-16 16:27:48
  */
 
 /**
  * @description  一个定时器实现,利用setTimeout来模拟setInterval,并且增加补时机制,使定时器相对能较准确的执行.
  */
-
 
 interface timerFN {
   (): void;
@@ -29,7 +28,7 @@ interface timerInfo {
 
 let globalTimer: Array<timerInfo> = [];
 
-window.timer = globalTimer;
+(window as any).timer = globalTimer;
 
 export function createTimer(
   fn: timerFN,

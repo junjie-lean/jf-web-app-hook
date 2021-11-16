@@ -2,11 +2,11 @@
  * @Author: junjie.lean
  * @Date: 2020-03-11 14:19:41
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 09:43:17
+ * @Last Modified time: 2021-11-16 16:52:21
  */
-import React, { Fragment as F } from 'react';
+import React, { Fragment as F, PropsWithChildren, ReactElement } from 'react';
 
-export default function SVG(props) {
+export function SVG(props: PropsWithChildren<any>): ReactElement {
   let style = props.style ? { ...props.style } : {};
 
   if (props.width) {

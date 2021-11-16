@@ -2,14 +2,14 @@
  * @Author: junjie.lean
  * @Date: 2020-03-17 09:52:08
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 10:23:07
+ * @Last Modified time: 2021-11-16 17:07:09
  */
 
-import React from 'react';
+import React, { ReactElement, PropsWithChildren } from 'react';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import { HashRouter as Router } from 'react-router-dom';
-import BaseRouter from '../router/router-index';
-import ProfilerMoniter from './public-profile';
+import { BaseRouter } from '../router/router-index';
+import { ProfilerMoniter } from './public-profile';
 import { ConfigProvider } from 'antd';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
@@ -24,7 +24,11 @@ import autoMergeLevel1 from 'redux-persist/lib/stateReconciler/autoMergeLevel1';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { PersistGate } from 'redux-persist/integration/react';
 
-const ContextProvider = (props) => {
+/**
+ * react-redux 状态守卫,在刷新浏览器的时候可以保持上次的redux状态
+ * @returns ReactElement
+ */
+function ContextProvider(props): ReactElement {
   //redux同步机制
   //利用redux-persist持久化本地数据,使刷新页面后,redux状态值不丢失.
   const persistConfig = {
@@ -56,9 +60,9 @@ const ContextProvider = (props) => {
       </PersistGate>
     </Provider>
   );
-};
+}
 
-export default function App() {
+export function App(props): ReactElement {
   return (
     <ConfigProvider locale={zhCN}>
       <ProfilerMoniter id="react-app-moniter-root" open={false} callback={null}>

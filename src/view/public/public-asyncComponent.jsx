@@ -2,16 +2,16 @@
  * @Author: junjie.lean
  * @Date: 2021-04-21 12:50:32
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 09:38:52
+ * @Last Modified time: 2021-11-16 16:53:50
  */
 
-import React, { Component, ReactElement } from 'react';
+import React, { Component } from 'react';
 
 /**
  * @description import()组件的方法实现,该方法用于进行动态代码切割
  * @example  asyncComponent(()=>  import("/some/path/of/component"))
  */
-export default function asyncComponent(importComponent) {
+export function asyncComponent(importComponent) {
   class AsyncComponent extends Component {
     constructor(props) {
       super(props);

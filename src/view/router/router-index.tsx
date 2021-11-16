@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2021-03-09 14:58:59
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 10:20:56
+ * @Last Modified time: 2021-11-16 16:45:12
  */
 
 import React, { Fragment as F, useEffect, useContext } from 'react';
@@ -13,7 +13,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import asyncComponent from '../public/public-asyncComponent';
+import { asyncComponent } from '../public/public-asyncComponent';
 
 const Loading = asyncComponent(
   () =>
@@ -21,6 +21,7 @@ const Loading = asyncComponent(
       /*webpackPerload: true,webpackChunkName :"loading" */ '../page/layout-loading'
     )
 );
+
 const Home = asyncComponent(
   () =>
     import(
@@ -28,16 +29,16 @@ const Home = asyncComponent(
     )
 );
 
-export default function BaseRouter(props) {
+export function BaseRouter(props) {
   let baseHash = '';
   return (
     <F>
-        <Switch>
-          <Route exact path={baseHash + '/'} component={Loading} />
-          <Route path={baseHash + '/loading'} component={Loading} />
-          <Route path={baseHash + '/home'} render={() => <Home {...props} />} />
-          {/* <Redirect to={baseHash + '/loading'} /> */}
-        </Switch>
+      <Switch>
+        <Route exact path={baseHash + '/'} component={Loading} />
+        <Route path={baseHash + '/loading'} component={Loading} />
+        <Route path={baseHash + '/home'} render={() => <Home {...props} />} />
+        {/* <Redirect to={baseHash + '/loading'} /> */}
+      </Switch>
     </F>
   );
 }
