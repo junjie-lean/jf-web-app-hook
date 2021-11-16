@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 15:41:40
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 18:47:58
+ * @Last Modified time: 2021-11-16 10:08:04
  */
 
 /**
@@ -43,7 +43,7 @@ module.exports.setDevServer = function (defaultConfig = {}) {
       'Powered-By-Jvfe': 'true',
     },
     host: '0.0.0.0',
-    hot: 'only',
+    // hot: true,
     historyApiFallback: {
       // index: '/index.html',
       disableDotRule: true,
@@ -55,6 +55,13 @@ module.exports.setDevServer = function (defaultConfig = {}) {
       serveIndex: true,
       watch: {
         poll: 3000,
+      },
+    },
+    // magicHtml: true,
+    watchFiles: {
+      paths: ['src/**/*'],
+      options: {
+        usePolling: 3,
       },
     },
     port: port,

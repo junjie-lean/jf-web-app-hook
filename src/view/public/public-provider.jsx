@@ -2,11 +2,12 @@
  * @Author: junjie.lean
  * @Date: 2020-03-17 09:52:08
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 09:05:35
+ * @Last Modified time: 2021-11-16 10:23:07
  */
 
 import React from 'react';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
+import { HashRouter as Router } from 'react-router-dom';
 import BaseRouter from '../router/router-index';
 import ProfilerMoniter from './public-profile';
 import { ConfigProvider } from 'antd';
@@ -58,15 +59,13 @@ const ContextProvider = (props) => {
 };
 
 export default function App() {
-  // React.useEffect(() => {
-  //   console.log(BaseRouter);
-  //   console.log(typeof BaseRouter);
-  // }, []);
   return (
     <ConfigProvider locale={zhCN}>
       <ProfilerMoniter id="react-app-moniter-root" open={false} callback={null}>
         <ContextProvider>
-          <BaseRouter />
+          <Router>
+            <BaseRouter />
+          </Router>
         </ContextProvider>
       </ProfilerMoniter>
     </ConfigProvider>

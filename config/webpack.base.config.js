@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:33:20
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 09:39:49
+ * @Last Modified time: 2021-11-16 10:04:18
  */
 
 /**
@@ -33,6 +33,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const config = {
   mode,
+  target: 'web',
   entry: path.resolve(__dirname, '../src/index.js'),
   output: {
     path: path.resolve(__dirname, '../build'),

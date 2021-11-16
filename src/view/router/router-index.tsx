@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2021-03-09 14:58:59
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 09:02:19
+ * @Last Modified time: 2021-11-16 10:20:56
  */
 
 import React, { Fragment as F, useEffect, useContext } from 'react';
@@ -32,14 +32,12 @@ export default function BaseRouter(props) {
   let baseHash = '';
   return (
     <F>
-      <Router basename="/">
         <Switch>
           <Route exact path={baseHash + '/'} component={Loading} />
           <Route path={baseHash + '/loading'} component={Loading} />
           <Route path={baseHash + '/home'} render={() => <Home {...props} />} />
           {/* <Redirect to={baseHash + '/loading'} /> */}
         </Switch>
-      </Router>
     </F>
   );
 }
