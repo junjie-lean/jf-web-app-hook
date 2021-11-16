@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-03-18 11:00:47
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 10:52:34
+ * @Last Modified time: 2021-11-16 11:27:42
  */
 
 import React, { useEffect, useState, FC, Fragment as F } from 'react';
@@ -16,6 +16,9 @@ import {
   Divider,
   Breadcrumb,
   Dropdown,
+  Modal,
+  message as MessageNotify,
+  notification as NotifyModal,
 } from 'antd';
 import {
   MenuUnfoldOutlined,
@@ -25,6 +28,7 @@ import {
   UploadOutlined,
   HomeOutlined,
   DownOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 const { Header, Sider, Content } = Layout;
@@ -35,13 +39,60 @@ function Home(props: HomeProps) {
   //是否折叠菜单
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
-  //切换菜单折叠
+  //受控组件
+  const [inputValue, setInputValue] = useState<string>('');
+
+  /**
+   * @description 点击切换菜单折叠状态
+   */
   const toggleMenu = () => {
     setCollapsed((collapsed) => !collapsed);
   };
 
+  /**
+   * @description 右侧通知事件
+   */
+  const notifiHandle = (type) => {
+    NotifyModal[type]({
+      message: type + '标题:',
+      description:
+        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    });
+  };
 
-  
+  /**
+   * @description 消息提示事件
+   */
+  const messageHandle = () => {
+    MessageNotify.success('success');
+    MessageNotify.error('error');
+    MessageNotify.warning('warning');
+  };
+
+  /**
+   * @description 模态框提示
+   */
+  const modalHandle = () => {
+    Modal.confirm({
+      title: 'Do you Want to delete these items?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'Some descriptions',
+      onOk() {
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
+
+  /**
+   * @description componentDidMount
+   */
+  useEffect(() => {
+    console.log('didMount');
+    MessageNotify.info('component did mount');
+  }, []);
 
   return (
     <F>
@@ -131,16 +182,74 @@ function Home(props: HomeProps) {
               <MenuFoldOutlined onClick={toggleMenu} />
             )}
             <Divider />
-
             <Space size={10}>
               <span>Button: </span>
-              <Button type="default">default</Button>
-              <Button danger>danger</Button>
-              <Button type="primary">primary</Button>
-              <Button type="ghost">ghost</Button>
-              <Button type="text">text</Button>
-              <Button type="link">link</Button>
+              <Button
+                onClick={() => {
+                  notifiHandle('success');
+                }}
+                type="default"
+              >
+                default
+              </Button>
+              <Button
+                onClick={() => {
+                  notifiHandle('error');
+                }}
+                danger
+              >
+                danger
+              </Button>
+              <Button
+                onClick={() => {
+                  notifiHandle('warning');
+                }}
+                type="primary"
+              >
+                primary
+              </Button>
+              <Button
+                onClick={() => {
+                  notifiHandle('info');
+                }}
+                type="ghost"
+              >
+                ghost
+              </Button>
+              <Button onClick={messageHandle} type="text">
+                text
+              </Button>
+              <Button onClick={modalHandle} type="link">
+                link
+              </Button>
             </Space>
+            <Divider />
+            <div>
+              <p className="input-component">
+                <span>受控组件:</span>
+                <Input
+                  onChange={({ target: { value } }) => {
+                    setInputValue(value);
+                  }}
+                  value={inputValue}
+                />
+                <span>反显:{inputValue}</span>
+              </p>
+              <p className="input-component">
+                <span>非受控组件:</span>
+                <Input />
+              </p>
+            </div>
+
+            <div>
+              <Button
+                type="link"
+                href="https://ant-design.gitee.io/components/overview-cn/"
+                target="_blank"
+              >
+                更多组件示例
+              </Button>
+            </div>
           </Content>
         </Layout>
       </Layout>

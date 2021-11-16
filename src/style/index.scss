@@ -24,8 +24,17 @@
   .trigger:hover {
     color: #1890ff;
   }
-  
+
   .site-layout .site-layout-background {
     background: #fff;
+  }
+
+  .input-component {
+    display: flex;
+    flex-direction: column;
+    > input {
+      width: 300px;
+      margin: 4px 0;
+    }
   }
 }
