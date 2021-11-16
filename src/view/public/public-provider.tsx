@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-03-17 09:52:08
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 17:07:09
+ * @Last Modified time: 2021-11-16 17:17:21
  */
 
 import React, { ReactElement, PropsWithChildren } from 'react';
@@ -26,9 +26,16 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 /**
  * react-redux 状态守卫,在刷新浏览器的时候可以保持上次的redux状态
+ * ```
+ * <Provider store={store}>
+ *    <PersistGate loading={null} persistor={persistor}>
+ *      {props.children}
+ *    </PersistGate>
+ *  </Provider>
+ * ```
  * @returns ReactElement
  */
-function ContextProvider(props): ReactElement {
+export function ContextProvider(props): ReactElement {
   //redux同步机制
   //利用redux-persist持久化本地数据,使刷新页面后,redux状态值不丢失.
   const persistConfig = {
@@ -62,6 +69,23 @@ function ContextProvider(props): ReactElement {
   );
 }
 
+/**
+ * 项目入口
+ * 包含了antd的配置,性能监控器,redux状态守卫,路由,根组件等
+ *
+ * ```tsx
+ *  <ConfigProvider locale={zhCN}>
+ *    <ProfilerMoniter id="react-app-moniter-root" open={false} callback={null}>
+ *      <ContextProvider>
+ *        <Router>
+ *          <BaseRouter />
+ *        </Router>
+ *      </ContextProvider>
+ *    </ProfilerMoniter>
+ *  </ConfigProvider>
+ * ```
+ *
+ */
 export function App(props): ReactElement {
   return (
     <ConfigProvider locale={zhCN}>

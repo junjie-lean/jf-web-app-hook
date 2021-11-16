@@ -2,14 +2,13 @@
  * @Author: junjie.lean
  * @Date: 2021-04-21 12:50:32
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 16:53:50
+ * @Last Modified time: 2021-11-16 17:48:04
  */
 
 import React, { Component } from 'react';
 
 /**
  * @description import()组件的方法实现,该方法用于进行动态代码切割
- * @example  asyncComponent(()=>  import("/some/path/of/component"))
  */
 export function asyncComponent(importComponent) {
   class AsyncComponent extends Component {
@@ -21,8 +20,15 @@ export function asyncComponent(importComponent) {
     }
 
     async componentDidMount() {
-      const { default: component } = await importComponent();
+      const components = await importComponent();
+      const keys = Reflect.ownKeys(components);
 
+      let component;
+      keys
+        .filter((key) => key !== '__esModule')
+        .map((key) => {
+          component = components[key];
+        });
       this.setState({
         component: component,
       });

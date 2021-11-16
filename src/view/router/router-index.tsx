@@ -2,16 +2,11 @@
  * @Author: junjie.lean
  * @Date: 2021-03-09 14:58:59
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 16:45:12
+ * @Last Modified time: 2021-11-16 17:33:05
  */
 
-import React, { Fragment as F, useEffect, useContext } from 'react';
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import React, { Fragment as F, ReactElement } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { asyncComponent } from '../public/public-asyncComponent';
 
@@ -29,7 +24,12 @@ const Home = asyncComponent(
     )
 );
 
-export function BaseRouter(props) {
+/**
+ * 路由组件,导入组件均采用按需加载的方式
+ * @param props
+ * @returns
+ */
+export function BaseRouter(props): ReactElement {
   let baseHash = '';
   return (
     <F>
@@ -37,7 +37,7 @@ export function BaseRouter(props) {
         <Route exact path={baseHash + '/'} component={Loading} />
         <Route path={baseHash + '/loading'} component={Loading} />
         <Route path={baseHash + '/home'} render={() => <Home {...props} />} />
-        {/* <Redirect to={baseHash + '/loading'} /> */}
+        <Redirect to={baseHash + '/loading'} />
       </Switch>
     </F>
   );

@@ -2,12 +2,12 @@
  * @Author: junjie.lean
  * @Date: 2020-01-09 14:17:37
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 16:35:11
+ * @Last Modified time: 2021-11-16 17:19:30
  */
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import   React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './view/public/public-provider';
 // import svgs from "!!raw-loader!./media/svg/symbol-defs.svg";
@@ -20,4 +20,3 @@ function render(props = {}) {
 }
 
 render();
-

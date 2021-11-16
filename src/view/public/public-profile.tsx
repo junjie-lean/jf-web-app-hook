@@ -2,26 +2,29 @@
  * @Author: junjie.lean
  * @Date: 2020-07-28 17:05:12
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 16:54:30
- */
-
-/**
- * 组件性能分析
- * props :
- *    id (string) 必填
- *    callback (function) 选填
+ * @Last Modified time: 2021-11-16 17:27:16
  */
 
 import React, { Profiler, PropsWithChildren, ReactElement } from 'react';
 
 const isDev = process.env.NODE_ENV == 'development';
 
+interface ProfilerMoniterProps {
+  children: ReactElement;
+  open: boolean;
+  id: string;
+  callback?: any;
+}
+
+/**
+ * 组件性能分析器
+ */
 export function ProfilerMoniter({
   children,
   open,
   id,
   callback,
-}: PropsWithChildren<any>): ReactElement {
+}: PropsWithChildren<ProfilerMoniterProps>): ReactElement {
   if (id == null) {
     throw new Error("调用性能分析组件 'public-profile' 必须添加id属性!");
   }
