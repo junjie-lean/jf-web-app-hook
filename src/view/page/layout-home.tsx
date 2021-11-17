@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-03-18 11:00:47
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 17:37:33
+ * @Last Modified time: 2021-11-17 10:01:06
  */
 
 import React, {
@@ -42,9 +42,10 @@ import { useSelector } from 'react-redux';
 const { Header, Sider, Content } = Layout;
 
 /**
- *
+ * @description 接口测试
+ * @interface
  */
-interface HomeProps {}
+export interface HomeProps {}
 
 /**
  * @description 测试入口组件

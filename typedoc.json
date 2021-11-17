@@ -1,5 +1,7 @@
 {
   "out": "./document",
   "name": "开发说明文档",
-  "entryPoints": ["./src/exports.js"]
+  "entryPoints": ["./src/exports.js"],
+  "hideGenerator": true,
+  "githubPages": false
 }
