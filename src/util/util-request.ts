@@ -1,15 +1,15 @@
 /*
  * @Author: junjie.lean
  * @Date: 2021-11-15 12:31:36
- * @Last Modified by:   junjie.lean
- * @Last Modified time: 2021-11-15 12:31:36
+ * @Last Modified by: junjie.lean
+ * @Last Modified time: 2021-11-17 11:14:13
  */
 
 /**
  * @description axios 单后台请求方式封装
  */
 
-import axios from 'axios';
+import axios, { AxiosPromise, AxiosResponse } from 'axios';
 import _ from 'lodash';
 
 /**
@@ -22,18 +22,19 @@ let opts = {};
  * 请求数据服务
  * @param {String} method 请求的方法
  * @param {JSON} params 提交参数
+ * @return AxiosPromise
  */
 export const request = (
-  method,
-  params,
-  success = () => {},
-  fail = () => {},
-  isBlob
-) => {
+  method: string,
+  params: any,
+  success = (resData: any) => {},
+  fail = (error: any) => {},
+  isBlob: boolean
+): AxiosPromise => {
   if (method) {
     let postData = {
       data: params || {},
-      token: opts.token || '',
+      token: (opts as any).token || '',
     };
     const config = {
       headers: {
@@ -41,7 +42,7 @@ export const request = (
       },
     };
     if (isBlob) {
-      config.responseType = 'blob';
+      (config as any).responseType = 'blob';
     }
     const ajaxObj = axiosIns.post(
       `/${method}`,
@@ -49,7 +50,7 @@ export const request = (
       config
     );
     ajaxObj
-      .then((response) => {
+      .then((response: AxiosResponse) => {
         if (typeof success === 'function') {
           success(response.data);
         }
