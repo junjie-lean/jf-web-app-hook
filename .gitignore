@@ -1,6 +1,8 @@
 node_modules
 build
 
-
 #开发文档
 document
+
+package-lock.json
+yarn.lock
