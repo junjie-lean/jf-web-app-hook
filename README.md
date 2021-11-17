@@ -7,6 +7,8 @@
     - 基于hook的react及react全家桶,包含redux,ant-design,react-router等
     - 自动化单元测试(未完全调试适配)
     - 自动生成开发文档
+    - 针对vscode,提供了editorconfig和eslint以及prettier,达到一致的开发体验和统一代码编写风格
+
 
 ### 启动命令:
 `npm run dev`
