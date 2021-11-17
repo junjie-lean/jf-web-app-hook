@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-03-18 11:00:47
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-17 10:01:06
+ * @Last Modified time: 2021-11-17 16:50:15
  */
 
 import React, {
@@ -12,8 +12,8 @@ import React, {
   Fragment as F,
   ReactElement,
   PropsWithChildren,
-} from 'react';
-import './../../style/index.scss';
+} from "react";
+import "./../../style/index.scss";
 import {
   Layout,
   Button,
@@ -26,7 +26,7 @@ import {
   Modal,
   message as MessageNotify,
   notification as NotifyModal,
-} from 'antd';
+} from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -36,9 +36,9 @@ import {
   HomeOutlined,
   DownOutlined,
   ExclamationCircleOutlined,
-} from '@ant-design/icons';
+} from "@ant-design/icons";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 const { Header, Sider, Content } = Layout;
 
 /**
@@ -57,7 +57,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   //受控组件
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>("");
 
   /**
    * @description 点击切换菜单折叠状态
@@ -71,9 +71,9 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
    */
   const notifiHandle = (type) => {
     NotifyModal[type]({
-      message: type + '标题:',
+      message: type + "标题:",
       description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
     });
   };
 
@@ -81,9 +81,9 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
    * @description 消息提示事件
    */
   const messageHandle = () => {
-    MessageNotify.success('success');
-    MessageNotify.error('error');
-    MessageNotify.warning('warning');
+    MessageNotify.success("success");
+    MessageNotify.error("error");
+    MessageNotify.warning("warning");
   };
 
   /**
@@ -91,14 +91,14 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
    */
   const modalHandle = () => {
     Modal.confirm({
-      title: 'Do you Want to delete these items?',
+      title: "Do you Want to delete these items?",
       icon: <ExclamationCircleOutlined />,
-      content: 'Some descriptions',
+      content: "Some descriptions",
       onOk() {
-        console.log('OK');
+        console.log("OK");
       },
       onCancel() {
-        console.log('Cancel');
+        console.log("Cancel");
       },
     });
   };
@@ -107,8 +107,8 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
    * @description componentDidMount
    */
   useEffect(() => {
-    console.log('didMount');
-    MessageNotify.info('component did mount');
+    console.log("didMount");
+    MessageNotify.info("component did mount");
   }, []);
 
   return (
@@ -116,7 +116,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
       <Layout className="jvfe-app-layout">
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
             <Menu.Item key="1" icon={<UserOutlined />}>
               Menu 1
             </Menu.Item>
@@ -132,13 +132,13 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
           <Header
             className="site-layout-background"
             style={{
-              padding: '0 10px',
-              display: 'flex',
-              flexDirection: 'row',
-              flexWrap: 'nowrap',
-              alignContent: 'center',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              padding: "0 10px",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "nowrap",
+              alignContent: "center",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <span>jvfe react hook framework</span>
@@ -171,7 +171,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
           </Header>
           <div
             style={{
-              margin: '24px 0 0 16px ',
+              margin: "24px 0 0 16px ",
             }}
           >
             <Breadcrumb>
@@ -187,9 +187,9 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
           <Content
             className="site-layout-background"
             style={{
-              margin: '24px 16px',
+              margin: "24px 16px",
               padding: 24,
-              height: '100%',
+              height: "100%",
             }}
           >
             <span>折叠菜单切换 : </span>
@@ -203,7 +203,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
               <span>Button: </span>
               <Button
                 onClick={() => {
-                  notifiHandle('success');
+                  notifiHandle("success");
                 }}
                 type="default"
               >
@@ -211,7 +211,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
               </Button>
               <Button
                 onClick={() => {
-                  notifiHandle('error');
+                  notifiHandle("error");
                 }}
                 danger
               >
@@ -219,7 +219,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
               </Button>
               <Button
                 onClick={() => {
-                  notifiHandle('warning');
+                  notifiHandle("warning");
                 }}
                 type="primary"
               >
@@ -227,7 +227,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
               </Button>
               <Button
                 onClick={() => {
-                  notifiHandle('info');
+                  notifiHandle("info");
                 }}
                 type="ghost"
               >
