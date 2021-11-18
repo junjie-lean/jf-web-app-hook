@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-03-18 11:00:47
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-17 16:50:15
+ * @Last Modified time: 2021-11-18 10:32:21
  */
 
 import React, {
@@ -273,3 +273,5 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
     </F>
   );
 }
+
+export default Home;

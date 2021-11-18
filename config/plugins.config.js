@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:22:01
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 18:27:35
+ * @Last Modified time: 2021-11-18 14:15:50
  */
 
 /**
@@ -96,6 +96,8 @@ module.exports.setDefaultPlugins = function (config = {}, defaultPlugin = []) {
       ignoreOrder: false,
     })
   );
+
+  
 
   return plugins;
 };

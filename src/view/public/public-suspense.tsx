@@ -2,15 +2,18 @@
  * @Author: junjie.lean
  * @Date: 2020-07-28 17:05:12
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 16:50:38
+ * @Last Modified time: 2021-11-18 10:55:07
  */
 
-import React, { Suspense } from 'react';
-import './../../style/index.scss';
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import React, { Suspense, ReactElement } from "react";
+import "./../../style/index.scss";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
-export function SuspenseFun({ children, skeleton }) {
+/**
+ * @description 动态引入降级解决方案
+ */
+export function SuspenseFun({ children }): ReactElement {
   return (
     <Suspense
       fallback={
