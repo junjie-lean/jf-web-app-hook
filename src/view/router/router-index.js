@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2021-03-09 14:58:59
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-18 16:23:39
+ * @Last Modified time: 2021-11-18 17:27:29
  */
 
 import React, { Fragment as F, ReactElement, lazy } from "react";
@@ -48,7 +48,7 @@ export function BaseRouter(props) {
           path={baseHash + "/home"}
           render={(...renderProps) => <Home {...props} {...renderProps} />}
         />
-        {/* <Route path={baseHash + "/state"} component={State} /> */}
+        <Route path={baseHash + "/state"} component={State} />
         <Redirect to={baseHash + "/loading"} />
       </Switch>
     </F>

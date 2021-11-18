@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:33:20
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-18 16:02:30
+ * @Last Modified time: 2021-11-18 17:39:18
  */
 
 /**
@@ -39,12 +39,14 @@ const config = {
     path: path.resolve(__dirname, "../build"),
     filename:
       mode == "production"
-        ? "static/js/index.[name].[contenthash].js" //index.js
+        ? // ? "static/js/index.[name].[contenthash].js" //index.js
+          "static/js/index.[name].js" //index.js
         : "static/js/dev.[name].index.js", //dev.b.js
     chunkFilename:
       mode == "production"
-        ? "static/js/chunk/chunk.[name].[contenthash].js" //c.main.hash.js
-        : "static/js/chunk/dev.[name].js", //dev.c.main.js
+        ? // ? "static/js/chunk/[name].[contenthash].js" //c.main.hash.js
+          "static/js/chunk/[name].js" //c.main.hash.js
+        : "static/js/chunk/[name].js", //dev.c.main.js
     publicPath: "./",
   },
   devtool: "eval-source-map",
@@ -80,17 +82,54 @@ const config = {
     ? {
         optimization: {
           minimizer: [new CssMinimizerPlugin()],
-          moduleIds: "named", //打包时关键性依赖包不重新更新hash,比如react这些...
+          moduleIds: "deterministic", //打包时关键性依赖包不重新更新hash,比如react这些...
           runtimeChunk: "single", //为所有chunk 创建一个runtime bundle,而不是每一个文件一个verdors
           chunkIds: "named",
           splitChunks: {
             chunks: "all",
             cacheGroups: {
               defaultVendors: {
-                test: /[\\/]node_modules[\\/]/,
-                priority: -10,
-                name: "static",
+                test: /[\\/]node_modules[\\/](react|react-dom|antd|@ant-design|lodash|moment|@ant-design|core-js|react-router|react-router-dom|core-js-pure)[\\/]/,
+                name(module, chunks, cacheGroupKey) {
+                  const moduleFileName = module
+                    .identifier()
+                    .split("/")
+                    .reduceRight((item) => item);
+                  const allChunksNames = chunks
+                    .map((item) => item.name)
+                    .join("~");
+                  return `${moduleFileName}-${allChunksNames}`;
+                },
                 chunks: "all",
+              },
+              //   defaultVendors: {
+              //     test: /[\\/]node_modules[\\/]/,
+              //     priority: 10,
+              //     minChunks: 2,
+              //     chunks: "all",
+              //     name(module, chunks, cacheGroupKey) {
+              //       const moduleFileName = module
+              //         .identifier()
+              //         .split("/")
+              //         .reduceRight((item) => item);
+              //       const allChunksNames = chunks
+              //         .map((item) => item.name)
+              //         .join("~");
+              //       return `${moduleFileName}-${allChunksNames}`;
+              //     },
+              //   },
+              commons: {
+                test: /[\\/]src[\\/]/,
+                minChunks: 3, //  minimum common number
+                priority: 5,
+                name(module) {
+                  const moduleFileName = module
+                    .identifier()
+                    .split("/")
+                    .reduceRight((item) => item);
+                  return `${moduleFileName}`;
+                },
+                reuseExistingChunk: true,
               },
             },
           },
