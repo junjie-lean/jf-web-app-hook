@@ -2,12 +2,12 @@
  * @Author: junjie.lean
  * @Date: 2020-07-28 17:05:12
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 17:27:16
+ * @Last Modified time: 2021-11-22 09:15:52
  */
 
-import React, { Profiler, PropsWithChildren, ReactElement } from 'react';
+import React, { Profiler, PropsWithChildren, ReactElement } from "react";
 
-const isDev = process.env.NODE_ENV == 'development';
+const isDev = process.env.NODE_ENV == "development";
 
 interface ProfilerMoniterProps {
   children: ReactElement;
@@ -18,6 +18,10 @@ interface ProfilerMoniterProps {
 
 /**
  * 组件性能分析器
+ * Profiler 能添加在 React 树中的任何地方来测量树中这部分渲染所带来的开销。 
+ * 它需要两个 prop ：
+ * 一个是 id(string)，
+ * 一个是当组件树中的组件“提交”更新的时候被React调用的回调函数 onRender(function)。
  */
 export function ProfilerMoniter({
   children,
@@ -30,7 +34,7 @@ export function ProfilerMoniter({
   }
 
   if (!isDev) {
-    console.warn('生产环境已禁用性能分析组件');
+    console.warn("生产环境已禁用性能分析组件");
   }
 
   if (!callback) {
@@ -38,9 +42,9 @@ export function ProfilerMoniter({
       console.log(
         `
         组件id:${id},
-        渲染方式:${phase == 'update' ? '更新' : '挂载'},
+        渲染方式:${phase == "update" ? "更新" : "挂载"},
         渲染耗时:${Math.round(actualDuration * 1000)}μs
-        `
+        `,
       );
     };
   }
