@@ -2,93 +2,93 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:22:01
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-15 15:55:53
+ * @Last Modified time: 2022-01-26 11:07:41
  */
 
 /**
  * webpack moduleLoader config list
  */
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-const { resolve } = require('path');
-const os = require('os');
+const { resolve } = require("path");
+const os = require("os");
+const { transpileModule } = require("typescript");
 
 module.exports.setDefaultModule = function (config = {}) {
   let rules = [];
   let { mode } = config;
 
-  const rawLoader = {
+  const rowRouce = {
     test: /\.(txt|svg)$/i,
-    use: 'raw-loader',
-    // include: resolve(__dirname, "..", "src"),
+    type: "asset/source",
   };
 
   const babelLoader = {
     test: /\.jsx?$/,
     exclude: /node_modules/,
     use: {
-      loader: 'babel-loader',
+      loader: "babel-loader",
       options: {
-        cacheDirectory: false,
-        compact: mode === 'production',
+        cacheDirectory: true,
+        compact: mode === "production",
         presets: [
           //此配置如果修改，可能需要同步修改happyPack插件的配置,以优化打包构建效率
-          ['@babel/react'],
+          ["@babel/react"],
           [
-            '@babel/env',
+            "@babel/env",
             {
               // spec: false, //是否启用更为规范的转换
               // debug: false,
-              useBuiltIns: 'usage', //入口文件出注入polyfill
+              useBuiltIns: "usage", //入口文件出注入polyfill
               // useBuiltIns: "usage", //按需自动加入polyfill
               targets: {
-                chrome: '58',
-                ie: '11',
+                chrome: "58",
+                ie: "11",
               },
-              corejs: '3',
+              corejs: "3",
             },
           ],
         ],
         plugins: [
           [
-            '@babel/plugin-proposal-decorators',
+            "@babel/plugin-proposal-decorators",
             {
               legacy: true,
             },
           ],
-          ['@babel/plugin-proposal-class-properties', { loose: false }],
-          ['@babel/plugin-syntax-class-properties', { loose: true }],
+          ["@babel/plugin-proposal-class-properties", { loose: false }],
+          ["@babel/plugin-syntax-class-properties", { loose: true }],
           [
-            'import',
+            "import",
             {
-              libraryName: 'antd',
-              libraryDirectory: 'es',
+              libraryName: "antd",
+              libraryDirectory: "es",
               // style: "css"
               style: true,
             },
-            'antd',
+            "antd",
           ],
           [
-            'module-resolver',
+            "module-resolver",
             {
-              extensions: ['.js', '.jsx'],
+              extensions: [".js", ".jsx"],
             },
           ],
           [
-            '@babel/plugin-transform-modules-commonjs',
+            "@babel/plugin-transform-modules-commonjs",
             {
               allowTopLevelThis: true,
             },
           ],
           [
-            '@babel/plugin-transform-runtime',
+            "@babel/plugin-transform-runtime",
             {
-              corejs: '3',
+              corejs: "3",
             },
           ],
-          '@babel/plugin-syntax-dynamic-import',
+          "@babel/plugin-syntax-dynamic-import",
         ],
       },
     },
@@ -100,77 +100,68 @@ module.exports.setDefaultModule = function (config = {}) {
       {
         loader: MiniCssExtractPlugin.loader,
         options: {
-          publicPath: '../../',
+          //   publicPath: "/static/picture/",
+          publicPath: "/",
+          //   hmr: process.env.NODE_ENV === "development",
         },
       },
       {
-        loader: 'css-loader',
+        loader: "css-loader",
         options: {
           importLoaders: 1,
           modules: { auto: true },
         },
       },
+      //   {
+      //     loader: "resolve-url-loader",
+      //     options: {
+      //       debug: true,
+      //       sourceMap: transpileModule,
+      //     },
+      //   },
       {
-        loader: 'sass-loader',
+        loader: "sass-loader",
         options: {
-          implementation: require('dart-sass'),
+          sourceMap: true,
+          //   implementation: require("dart-sass"),
         },
       },
     ],
   };
 
-  const fileLoader = {
-    test: /\.(mp4|avi)$/i,
-    use: [
-      {
-        loader: 'file-loader',
-        options: {
-          name: '[name].[contenthash].[ext]',
-          outputPath: 'media',
-        },
+  //内置模块
+  const assetResource = {
+    test: /\.(png|jpg|jpeg|gif|mp4|avi)$/i,
+    type: "asset/resource",
+    generator: {
+      filename: "static/meida/[name].[contenthash].[ext]",
+    },
+    parser: {
+      dataUrlCondition: {
+        maxSize: 30 * 1024,
       },
-    ],
-    include: resolve(__dirname, '..', 'src'),
+    },
   };
 
-  const urlLoader = {
-    test: /\.(png|jpg|jpeg|gif)$/i,
-    use: [
-      {
-        loader: 'url-loader',
-        options: {
-          limit: 1024 * 700, //unit:byte,under this value to transform to base64 code.
-          name: '[name].[contenthash].[ext]',
-          outputPath: 'media',
-          esModule: false,
-        },
-      },
-    ],
-    include: resolve(__dirname, '..', 'src'),
-  };
-
-  const fontLoader = {
+  const fontAsset = {
     test: /.(ttf|eot|woff|otf|woff2)$/i, // ttf|eot|svg|woff|woff2
-    use: [
-      {
-        loader: 'url-loader',
-        options: {
-          // name: '[name].[hash:8].[ext]',
-          limit: 1000 * 1024,
-          name: '[name].[ext]',
-          outputPath: 'font',
-        },
+    type: "asset/resource",
+    generator: {
+      filename: "static/meida/[name].[ext]",
+    },
+    parser: {
+      dataUrlCondition: {
+        maxSize: 2 * 1024 * 1024,
       },
-    ],
-    include: resolve(__dirname, '..', 'src'),
+    },
   };
 
   const lessLoader = {
     test: /\.less$/i,
     // include: [/[\\/]node_modules[\\/].*antd/],
     use: [
-      'style-loader',
-      'css-loader', // translates CSS into CommonJS
+      "style-loader",
+      "css-loader", // translates CSS into CommonJS
       // {
       //   loader: "postcss-loader",
       //   options: {
@@ -180,7 +171,7 @@ module.exports.setDefaultModule = function (config = {}) {
       //   },
       // },
       {
-        loader: 'less-loader', // compiles Less to CSS
+        loader: "less-loader", // compiles Less to CSS
         options: {
           lessOptions: {
             // modifyVars: {
@@ -194,43 +185,21 @@ module.exports.setDefaultModule = function (config = {}) {
     ],
   };
 
-  const markdownLoader = {
-    test: /\.md$/,
-    use: [
-      {
-        loader: 'html-loader',
-      },
-      {
-        loader: 'markdown-loader',
-      },
-    ],
-  };
-
-  const happypackLoader = {
-    test: /.jsx?$/,
-    use: 'happypack/loader?id=happyPackerJs',
-    exclude: /node_modules/,
-  };
-
   const tsLoader = {
     test: /\.tsx?$/,
-    loader: 'ts-loader',
+    loader: "ts-loader",
     exclude: /node_modules/,
     options: {},
   };
 
   rules.push(
-    // svgrLoader,
+    rowRouce,
     tsLoader,
     babelLoader,
     styleLoader,
     lessLoader,
-    rawLoader,
-    urlLoader,
-    fileLoader,
-    fontLoader
-    // markdownLoader,
-    // happypackLoader
+    assetResource,
+    fontAsset,
   );
 
   return { rules };

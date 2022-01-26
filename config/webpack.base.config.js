@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:33:20
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-18 17:39:18
+ * @Last Modified time: 2021-12-16 12:40:09
  */
 
 /**
@@ -78,10 +78,10 @@ const config = {
   // performance: {
   //   hints: false,
   // },
-  ...(mode === "production"
+  ...(mode === "production"  && false
     ? {
         optimization: {
-          minimizer: [new CssMinimizerPlugin()],
+        //   minimizer: [new CssMinimizerPlugin()],
           moduleIds: "deterministic", //打包时关键性依赖包不重新更新hash,比如react这些...
           runtimeChunk: "single", //为所有chunk 创建一个runtime bundle,而不是每一个文件一个verdors
           chunkIds: "named",
