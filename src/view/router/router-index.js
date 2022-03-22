@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2021-03-09 14:58:59
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-18 17:27:29
+ * @Last Modified time: 2022-03-22 15:24:39
  */
 
 import React, { Fragment as F, ReactElement, lazy } from "react";
@@ -42,7 +42,7 @@ export function BaseRouter(props) {
   return (
     <F>
       <Switch>
-        <Route exact path={baseHash + "/"} component={Loading} />
+        <Route exact path={baseHash + "/"} component={Home} />
         <Route path={baseHash + "/loading"} component={Loading} />
         <Route
           path={baseHash + "/home"}

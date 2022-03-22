@@ -7,7 +7,6 @@
 
 import React, { useEffect, ReactElement } from "react";
 import ReactLoading from "react-loading";
-// import css from "link-style";
 
 /**
  * @description react loading文件,可以在该文件做入口处理,比如鉴权,初始化菜单等等.

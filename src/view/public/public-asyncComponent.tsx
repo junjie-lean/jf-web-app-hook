@@ -2,10 +2,18 @@
  * @Author: junjie.lean
  * @Date: 2021-04-21 12:50:32
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-18 11:13:54
+ * @Last Modified time: 2022-03-22 15:21:44
  */
 
-import React, { Component, lazy } from "react";
+import React, { Component } from "react";
+
+interface Props {
+  [key: string]: any;
+}
+
+interface State {
+  component: any;
+}
 
 /**
  * @description import()组件的方法实现,该方法用于进行动态代码切割
@@ -15,7 +23,7 @@ import React, { Component, lazy } from "react";
  * @description 浏览器支持程度不同。
  */
 export function AsyncImportComponent(importComponent) {
-  class AsyncComponent extends Component {
+  class AsyncComponent extends Component<Props, State> {
     constructor(props) {
       super(props);
       this.state = {
