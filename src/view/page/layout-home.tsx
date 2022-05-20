@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-03-18 11:00:47
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-18 10:32:21
+ * @Last Modified time: 2022-05-20 11:19:53
  */
 
 import React, {
@@ -111,22 +111,35 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
     MessageNotify.info("component did mount");
   }, []);
 
+  const menu1Item = [
+    {
+      label: "Menu 1",
+      key: "1",
+      icon: <UserOutlined />,
+    },
+    {
+      label: "Menu 2",
+      key: "2",
+      icon: <VideoCameraOutlined />,
+    },
+    {
+      label: "Menu 3",
+      key: "4",
+      icon: <UploadOutlined />,
+    },
+  ];
+
   return (
     <F>
       <Layout className="jvfe-app-layout">
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              Menu 1
-            </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              Menu 2
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              Menu 3
-            </Menu.Item>
-          </Menu>
+          <Menu
+            theme="dark"
+            mode="inline"
+            defaultSelectedKeys={["1"]}
+            items={menu1Item}
+          />
         </Sider>
         <Layout className="site-layout">
           <Header
@@ -142,48 +155,8 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
             }}
           >
             <span>jvfe react hook framework</span>
-
-            <Dropdown
-              overlay={
-                <Menu>
-                  <Menu.ItemGroup title="Group title">
-                    <Menu.Item>1st menu item</Menu.Item>
-                    <Menu.Item>2nd menu item</Menu.Item>
-                  </Menu.ItemGroup>
-                  <Menu.SubMenu title="sub menu">
-                    <Menu.Item>3rd menu item</Menu.Item>
-                    <Menu.Item>4th menu item</Menu.Item>
-                  </Menu.SubMenu>
-                  <Menu.SubMenu title="disabled sub menu" disabled>
-                    <Menu.Item>5d menu item</Menu.Item>
-                    <Menu.Item>6th menu item</Menu.Item>
-                  </Menu.SubMenu>
-                </Menu>
-              }
-            >
-              <a
-                className="ant-dropdown-link"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span>下拉菜单</span> <DownOutlined />
-              </a>
-            </Dropdown>
           </Header>
-          <div
-            style={{
-              margin: "24px 0 0 16px ",
-            }}
-          >
-            <Breadcrumb>
-              <Breadcrumb.Item href="./">
-                <HomeOutlined />
-              </Breadcrumb.Item>
-              <Breadcrumb.Item href="./">
-                <span>面包屑</span>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>导航</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
+
           <Content
             className="site-layout-background"
             style={{

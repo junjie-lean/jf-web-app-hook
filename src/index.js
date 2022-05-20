@@ -2,21 +2,15 @@
  * @Author: junjie.lean
  * @Date: 2020-01-09 14:17:37
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-16 17:19:30
+ * @Last Modified time: 2022-05-20 10:27:24
  */
 
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { App } from './view/public/public-provider';
-// import svgs from "!!raw-loader!./media/svg/symbol-defs.svg";
-// document.querySelector("#svg").innerHTML += svgs;
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { App } from "./view/public/public-provider";
 
-function render(props = {}) {
-  document.title = 'jvfe react hook';
-  const DOM = document.getElementById('jvfe-app');
-  ReactDOM.render(<App {...props} />, DOM);
-}
+document.title = "jvfe react hook";
 
-render();
+ReactDOM.createRoot(document.getElementById("rtwl-app")).render(<App />);

@@ -2,12 +2,11 @@
  * @Author: junjie.lean
  * @Date: 2020-03-17 09:52:08
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-11-18 10:58:24
+ * @Last Modified time: 2022-05-20 10:41:42
  */
 
 import React, { ReactElement, PropsWithChildren } from "react";
 import zhCN from "antd/lib/locale-provider/zh_CN";
-import { HashRouter as Router } from "react-router-dom";
 import { BaseRouter } from "../router/router-index";
 import { ProfilerMoniter } from "./public-profile";
 import { ConfigProvider } from "antd";
@@ -73,7 +72,7 @@ export function ContextProvider(props): ReactElement {
 /**
  * @description 项目入口
  * 包含了antd的配置,性能监控器,redux状态守卫,路由,根组件等
- *
+ * !!!修改此组件需要慎重
  * ```tsx
  *  <ConfigProvider locale={zhCN}>
  *    <ProfilerMoniter id="react-app-moniter-root" open={false} callback={null}>
@@ -91,9 +90,7 @@ export function App(props): ReactElement {
       <ProfilerMoniter id="react-app-moniter-root" open={false} callback={null}>
         <ContextProvider>
           <SuspenseFun>
-            <Router>
-              <BaseRouter />
-            </Router>
+            <BaseRouter />
           </SuspenseFun>
         </ContextProvider>
       </ProfilerMoniter>

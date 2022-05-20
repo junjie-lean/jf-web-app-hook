@@ -2,14 +2,9 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 15:41:40
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2021-12-16 11:57:53
+ * @Last Modified time: 2022-05-20 09:41:40
  */
 
-/**
- * webpack dev server config  list.
- * 2021年11月15日16:01:20
- * 升级至webpack v5
- */
 
 const path = require("path");
 const openBrowser = require("react-dev-utils/openBrowser");
@@ -18,10 +13,10 @@ const port = require("./../package").port;
 module.exports.setDevServer = function (defaultConfig = {}) {
   let devConfig = {
     client: {
-      logging: defaultConfig.stats || "error",
+      logging: "error",
       overlay: {
         //当出现编译报错时,把报错显示到浏览器ˇ
-        errors: true,
+        errors: false,
         warnings: false,
       },
       //在浏览器中以百分比显示编译进度
@@ -40,7 +35,8 @@ module.exports.setDevServer = function (defaultConfig = {}) {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Headers": "Content-Type",
       "Access-Control-Allow-Methods": "*",
-      "Powered-By-Jvfe": "true",
+      "Powered-By-Jv-Fe": "true",
+      "Powered-By-Rtwl-Fe": "true",
     },
     host: "0.0.0.0",
     // hot: true,
@@ -48,6 +44,7 @@ module.exports.setDevServer = function (defaultConfig = {}) {
       // index: '/index.html',
       disableDotRule: true,
     },
+
     static: {
       directory: path.join(__dirname, "..", "public"),
       // // publicPath:  path.join(__dirname, "..", "public"),
@@ -58,13 +55,16 @@ module.exports.setDevServer = function (defaultConfig = {}) {
       //   },
     },
     // magicHtml: true,
-    // watchFiles: {
-    //   paths: ['src/**/*'],
-    //   options: {
-    //     usePolling: 3000,
-    //   },
-    // },
+    // hot: "only",
+    liveReload: false,
+    watchFiles: {
+      paths: ["src"],
+      options: {
+        usePolling: 3500,
+      },
+    },
     port: port,
+    // open: ["/"],
     // proxy: {
     //   "/jwell-km-api-client": {
     //     target: "http://10.130.0.63:8086/jwell-km-api-client",
@@ -77,9 +77,9 @@ module.exports.setDevServer = function (defaultConfig = {}) {
     //     // changeOrigin: true,
     //   },
     // },
-    onAfterSetupMiddleware: () => {
-      console.log(`\n\n\n\tServer start up \`http://localhost:${port}\``);
-    },
+    // onAfterSetupMiddleware: () => {
+    //   console.log(`\n\n\n\tServer start up \`http://localhost:${port}\``);
+    // },
     onListening: () => {
       let url = `http://localhost:${port}`;
       openBrowser(url);

@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:22:01
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2022-01-26 11:07:41
+ * @Last Modified time: 2022-05-20 10:02:16
  */
 
 /**
@@ -11,22 +11,16 @@
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-
-const { resolve } = require("path");
-const os = require("os");
-const { transpileModule } = require("typescript");
+// const { resolve } = require("path");
+// const os = require("os");
+// const { transpileModule } = require("typescript");
 
 module.exports.setDefaultModule = function (config = {}) {
   let rules = [];
   let { mode } = config;
 
-  const rowRouce = {
-    test: /\.(txt|svg)$/i,
-    type: "asset/source",
-  };
-
   const babelLoader = {
-    test: /\.jsx?$/,
+    test: /\.(j|t)sx?$/,
     exclude: /node_modules/,
     use: {
       loader: "babel-loader",
@@ -34,7 +28,6 @@ module.exports.setDefaultModule = function (config = {}) {
         cacheDirectory: true,
         compact: mode === "production",
         presets: [
-          //此配置如果修改，可能需要同步修改happyPack插件的配置,以优化打包构建效率
           ["@babel/react"],
           [
             "@babel/env",
@@ -44,12 +37,13 @@ module.exports.setDefaultModule = function (config = {}) {
               useBuiltIns: "usage", //入口文件出注入polyfill
               // useBuiltIns: "usage", //按需自动加入polyfill
               targets: {
-                chrome: "58",
+                chrome: "64",
                 ie: "11",
               },
               corejs: "3",
             },
           ],
+          "@babel/preset-typescript",
         ],
         plugins: [
           [
@@ -100,9 +94,7 @@ module.exports.setDefaultModule = function (config = {}) {
       {
         loader: MiniCssExtractPlugin.loader,
         options: {
-          //   publicPath: "/static/picture/",
           publicPath: "/",
-          //   hmr: process.env.NODE_ENV === "development",
         },
       },
       {
@@ -112,13 +104,6 @@ module.exports.setDefaultModule = function (config = {}) {
           modules: { auto: true },
         },
       },
-      //   {
-      //     loader: "resolve-url-loader",
-      //     options: {
-      //       debug: true,
-      //       sourceMap: transpileModule,
-      //     },
-      //   },
       {
         loader: "sass-loader",
         options: {
@@ -130,11 +115,17 @@ module.exports.setDefaultModule = function (config = {}) {
   };
 
   //内置模块
+  const rowRource = {
+    test: /\.(txt|svg)$/i,
+    type: "asset/source",
+  };
+
+  //内置模块
   const assetResource = {
-    test: /\.(png|jpg|jpeg|gif|mp4|avi)$/i,
+    test: /\.(png|jpg|jpeg|gif|mp4|avi|pdf)$/i,
     type: "asset/resource",
     generator: {
-      filename: "static/meida/[name].[contenthash].[ext]",
+      filename: "static/media/[name][ext]",
     },
     parser: {
       dataUrlCondition: {
@@ -147,7 +138,7 @@ module.exports.setDefaultModule = function (config = {}) {
     test: /.(ttf|eot|woff|otf|woff2)$/i, // ttf|eot|svg|woff|woff2
     type: "asset/resource",
     generator: {
-      filename: "static/meida/[name].[ext]",
+      filename: "static/media/[name].[ext]",
     },
     parser: {
       dataUrlCondition: {
@@ -158,18 +149,9 @@ module.exports.setDefaultModule = function (config = {}) {
 
   const lessLoader = {
     test: /\.less$/i,
-    // include: [/[\\/]node_modules[\\/].*antd/],
     use: [
       "style-loader",
       "css-loader", // translates CSS into CommonJS
-      // {
-      //   loader: "postcss-loader",
-      //   options: {
-      //     config: {
-      //       path: "./config/postcss.config.js",
-      //     },
-      //   },
-      // },
       {
         loader: "less-loader", // compiles Less to CSS
         options: {
@@ -185,16 +167,8 @@ module.exports.setDefaultModule = function (config = {}) {
     ],
   };
 
-  const tsLoader = {
-    test: /\.tsx?$/,
-    loader: "ts-loader",
-    exclude: /node_modules/,
-    options: {},
-  };
-
   rules.push(
-    rowRouce,
-    tsLoader,
+    rowRource,
     babelLoader,
     styleLoader,
     lessLoader,
