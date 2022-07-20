@@ -1,6 +1,6 @@
 {
   "extensions.autoUpdate": true,
-  "workbench.iconTheme": "vscode-icons",
+  "workbench.iconTheme": "vscode-great-icons",
   "editor.fontSize": 12,
-  "workbench.colorTheme":"One Dark (Sublime)"
+  "workbench.colorTheme":"One Dark Pro Darker"
 }
