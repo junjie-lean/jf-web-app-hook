@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2021-03-09 14:58:59
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2022-05-20 10:35:11
+ * @Last Modified time: 2022-10-17 15:33:14
  */
 
 import React, { Fragment as F } from "react";
@@ -12,19 +12,19 @@ import { AsyncImportComponent } from "../public/public-asyncComponent";
 
 const Loading = AsyncImportComponent(() =>
   import(
-    /*webpackPerload: true,webpackChunkName :"loading" */ "../page/layout-loading"
+    /*webpackPreload: true,webpackChunkName :"loading" */ "../page/layout-loading"
   ),
 );
 
 const Home = AsyncImportComponent(() =>
   import(
-    /* webpackPerfetch:true,webpackChunkName :"home" */ "../page/layout-home"
+    /* webpackPrefetch:true,webpackChunkName :"home" */ "../page/layout-home"
   ),
 );
 
 const State = AsyncImportComponent(() =>
   import(
-    /* webpackPerfetch:true,webpackChunkName :"state" */ "@/view/page/layout-state"
+    /* webpackPrefetch:true,webpackChunkName :"state" */ "@/view/page/layout-state"
   ),
 );
 
