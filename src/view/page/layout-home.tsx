@@ -2,13 +2,12 @@
  * @Author: junjie.lean
  * @Date: 2020-03-18 11:00:47
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2022-05-20 11:19:53
+ * @Last Modified time: 2022-10-17 17:10:47
  */
 
 import React, {
   useEffect,
   useState,
-  FC,
   Fragment as F,
   ReactElement,
   PropsWithChildren,
@@ -21,8 +20,6 @@ import {
   Space,
   Menu,
   Divider,
-  Breadcrumb,
-  Dropdown,
   Modal,
   message as MessageNotify,
   notification as NotifyModal,
@@ -33,12 +30,11 @@ import {
   UserOutlined,
   VideoCameraOutlined,
   UploadOutlined,
-  HomeOutlined,
-  DownOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const { Header, Sider, Content } = Layout;
 
 /**
@@ -59,6 +55,8 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
   //受控组件
   const [inputValue, setInputValue] = useState<string>("");
 
+  const navigate = useNavigate();
+
   /**
    * @description 点击切换菜单折叠状态
    */
@@ -69,7 +67,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
   /**
    * @description 右侧通知事件
    */
-  const notifiHandle = (type) => {
+  const notifyHandler = (type) => {
     NotifyModal[type]({
       message: type + "标题:",
       description:
@@ -116,16 +114,25 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
       label: "Menu 1",
       key: "1",
       icon: <UserOutlined />,
+      onClick() {
+        navigate("/state");
+      },
     },
     {
       label: "Menu 2",
       key: "2",
       icon: <VideoCameraOutlined />,
+      onClick() {
+        navigate("/loading");
+      },
     },
     {
       label: "Menu 3",
       key: "4",
       icon: <UploadOutlined />,
+      onClick() {
+        navigate("/transition");
+      },
     },
   ];
 
@@ -176,7 +183,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
               <span>Button: </span>
               <Button
                 onClick={() => {
-                  notifiHandle("success");
+                  notifyHandler("success");
                 }}
                 type="default"
               >
@@ -184,7 +191,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
               </Button>
               <Button
                 onClick={() => {
-                  notifiHandle("error");
+                  notifyHandler("error");
                 }}
                 danger
               >
@@ -192,7 +199,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
               </Button>
               <Button
                 onClick={() => {
-                  notifiHandle("warning");
+                  notifyHandler("warning");
                 }}
                 type="primary"
               >
@@ -200,7 +207,7 @@ export function Home(props: PropsWithChildren<HomeProps>): ReactElement {
               </Button>
               <Button
                 onClick={() => {
-                  notifiHandle("info");
+                  notifyHandler("info");
                 }}
                 type="ghost"
               >

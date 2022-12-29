@@ -2,31 +2,27 @@
  * @Author: junjie.lean
  * @Date: 2021-03-09 14:58:59
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2022-10-17 15:33:14
+ * @Last Modified time: 2022-10-18 13:59:44
  */
 
-import React, { Fragment as F } from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import React, { createRef } from "react";
+import {
+  Routes,
+  Route,
+  createHashRouter,
+  createBrowserRouter,
+  RouterProvider,
+  BrowserRouter as Router,
+  useLocation,
+} from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import Home from "@/view/page/layout-home";
+import Loading from "@/view/page/layout-loading";
+import State from "@/view/page/layout-state";
+import Transition from "@/view/page/layout-transition";
+import NotFound from "@/view/page/layout-404";
 
-import { AsyncImportComponent } from "../public/public-asyncComponent";
-
-const Loading = AsyncImportComponent(() =>
-  import(
-    /*webpackPreload: true,webpackChunkName :"loading" */ "../page/layout-loading"
-  ),
-);
-
-const Home = AsyncImportComponent(() =>
-  import(
-    /* webpackPrefetch:true,webpackChunkName :"home" */ "../page/layout-home"
-  ),
-);
-
-const State = AsyncImportComponent(() =>
-  import(
-    /* webpackPrefetch:true,webpackChunkName :"state" */ "@/view/page/layout-state"
-  ),
-);
+import nprogress from "nprogress";
 
 /**
  * 路由组件,导入组件均采用按需加载的方式
@@ -34,16 +30,82 @@ const State = AsyncImportComponent(() =>
  * @returns
  */
 export function BaseRouter(props) {
-  let baseHash = "";
+  const routerConfig = [
+    {
+      path: "/",
+      element: <Home />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/home",
+      element: <Home />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/loading",
+      element: <Loading />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/state",
+      element: <State />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/transition",
+      element: <Transition />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          path: "a",
+          element: <div>A</div>,
+        },
+        {
+          path: "b",
+          element: <div>B</div>,
+        },
+        {
+          path: "c",
+          element: <div>C</div>,
+        },
+      ],
+    },
+    {
+      path: "/404",
+      element: <NotFound />,
+    },
+    {
+      path: "*",
+      element: <div>no match</div>,
+    },
+  ];
+
+  //   const Router = createBrowserRouter(routerConfig);
+
   return (
-    <Router>
-      <Routes>
-        <Route exact path={baseHash + "/"} element={<Home />} />
-        <Route path={baseHash + "/loading"} element={<Loading />} />
-        <Route path={baseHash + "/home"} element={<Home />} />
-        <Route path={baseHash + "/state"} element={<State />} />
-      </Routes>
-    </Router>
+    <>
+      {/* <RouterProvider fallbackElement={<NotFound />}> */}
+      <Router>
+        <TransitionGroup>
+          <CSSTransition key={location.key} classNames="alert" timeout={1300}>
+            <Routes>
+              {routerConfig.map((item) => {
+                return (
+                  <Route {...item} key={item.path}>
+                    {item.children
+                      ? item.children.map((children) => (
+                          <Route {...children} key={children.path} />
+                        ))
+                      : null}
+                  </Route>
+                );
+              })}
+            </Routes>
+          </CSSTransition>
+        </TransitionGroup>
+      </Router>
+      {/* </RouterProvider> */}
+    </>
   );
 }
 

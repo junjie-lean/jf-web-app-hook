@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:33:20
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2022-07-20 15:28:36
+ * @Last Modified time: 2022-10-18 09:25:54
  */
 
 /**
@@ -47,7 +47,7 @@ const config = {
         ? // ? "static/js/chunk/[name].[contenthash].js" //c.main.hash.js
           "static/js/chunk/[name].js" //c.main.hash.js
         : "static/js/chunk/[name].js", //dev.c.main.js
-    publicPath: "./",
+    publicPath: "/",
   },
   devtool: "eval-source-map",
   stats: "errors-warnings",

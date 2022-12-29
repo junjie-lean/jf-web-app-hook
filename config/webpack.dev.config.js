@@ -2,9 +2,8 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 15:41:40
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2022-05-20 09:41:40
+ * @Last Modified time: 2022-10-18 09:22:09
  */
-
 
 const path = require("path");
 const openBrowser = require("react-dev-utils/openBrowser");
@@ -80,6 +79,14 @@ module.exports.setDevServer = function (defaultConfig = {}) {
     // onAfterSetupMiddleware: () => {
     //   console.log(`\n\n\n\tServer start up \`http://localhost:${port}\``);
     // },
+    historyApiFallback: {
+      rewrites: [
+        {
+          from: /.*/g,
+          to: "/index.html",
+        },
+      ],
+    },
     onListening: () => {
       let url = `http://localhost:${port}`;
       openBrowser(url);

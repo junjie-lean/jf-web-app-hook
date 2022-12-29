@@ -2,23 +2,24 @@
  * @Author: junjie.lean
  * @Date: 2020-03-18 11:00:34
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2022-01-26 11:20:40
+ * @Last Modified time: 2022-10-18 08:55:35
  */
 
 import React, { useEffect, ReactElement } from "react";
 import ReactLoading from "react-loading";
-
+import { useNavigate } from "react-router-dom";
 /**
  * @description react loading文件,可以在该文件做入口处理,比如鉴权,初始化菜单等等.
  * @param props
  * @returns
  */
 export function Loading(props): ReactElement {
+  const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
-      props.history.push("/home");
+      navigate("/home");
     }, 2000);
-  }, []);
+  }, []);3
 
   return (
     <>
