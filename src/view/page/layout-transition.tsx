@@ -1,22 +1,69 @@
-import React from "react";
-import { Space, Button } from "antd";
-import { Link, Outlet, useOutlet } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
-export default function Trans(props): JSX.Element {
-  const currentOutLet = useOutlet();
-  return (
-    <div style={{ padding: 30 }}>
-      <h3>transition</h3>
+
+interface IProps {
+  [key:string]:any
+}
+
+interface IState {
+  count: number;
+}
+
+export class CA extends React.Component<IProps, IState> {
+  readonly state: IState = {
+    count: 1,
+  };
+  constructor(props) {
+    super(props);
+  }
+
+  add = () => {
+    this.setState({
+      count: this.state.count + 1,
+    });
+  };
+
+  reset = () => {
+    this.setState({
+      count: 1,
+    });
+  };
+
+  render() {
+    return (
       <div>
-        <Space size={20}>
-          <Link to="/home">to home</Link>
-          <Link to="/transition">to transition</Link>
-          <Link to="/transition/a">to a</Link>
-          <Link to="/transition/b">to b</Link>
-          <Link to="/transition/c">to c</Link>
-        </Space>
+        <h1>class component </h1>
+        <button onClick={this.add}>add</button>
+        <button onClick={this.reset}>reset</button>
+        <h3>{this.state.count}</h3>
       </div>
-      {currentOutLet}
+    );
+  }
+}
+
+export function CB(props:IProps) {
+  const [count, setCount] = useState<number>(1);
+
+  return (
+    <div>
+      <h1>function component </h1>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        add
+      </button>
+      <button
+        onClick={() => {
+          setCount(1);
+        }}
+      >
+        reset
+      </button>
+      <h3>{count}</h3>
     </div>
   );
 }
+
+export default CA;

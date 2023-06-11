@@ -17,15 +17,26 @@ export function Loading(props): ReactElement {
   const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
-      navigate("/home");
+      //   navigate("/home");
     }, 2000);
-  }, []);3
+  }, []);
+  3;
+
+  useEffect(() => {
+    const target = document.querySelector("#target");
+
+    target.addEventListener("input", () => {
+      console.log('いんpd',target.innerHTML);
+    });
+  }, []);
 
   return (
     <>
       <div className="lean-mask">
         <div>
-          <span></span>
+          <span contentEditable id="target">
+            RTFC
+          </span>
           <br />
           <br />
 

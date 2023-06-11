@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2021-03-09 14:58:59
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2022-10-18 13:59:44
+ * @Last Modified time: 2023-03-13 11:14:32
  */
 
 import React, { createRef } from "react";
@@ -21,7 +21,7 @@ import Loading from "@/view/page/layout-loading";
 import State from "@/view/page/layout-state";
 import Transition from "@/view/page/layout-transition";
 import NotFound from "@/view/page/layout-404";
-
+import SSE from "@/view/page/layout-sse";
 import nprogress from "nprogress";
 
 /**
@@ -49,6 +49,11 @@ export function BaseRouter(props) {
     {
       path: "/state",
       element: <State />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/sse",
+      element: <SSE />,
       errorElement: <NotFound />,
     },
     {
