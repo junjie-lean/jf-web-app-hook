@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2021-03-09 14:58:59
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2023-03-13 11:14:32
+ * @Last Modified time: 2023-07-01 12:32:33
  */
 
 import React, { createRef } from "react";
@@ -22,7 +22,6 @@ import State from "@/view/page/layout-state";
 import Transition from "@/view/page/layout-transition";
 import NotFound from "@/view/page/layout-404";
 import SSE from "@/view/page/layout-sse";
-import nprogress from "nprogress";
 
 /**
  * 路由组件,导入组件均采用按需加载的方式

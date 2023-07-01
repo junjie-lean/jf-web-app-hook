@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:22:01
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2022-05-20 10:02:16
+ * @Last Modified time: 2023-07-01 12:31:48
  */
 
 /**
@@ -46,24 +46,8 @@ module.exports.setDefaultModule = function (config = {}) {
           "@babel/preset-typescript",
         ],
         plugins: [
-          [
-            "@babel/plugin-proposal-decorators",
-            {
-              legacy: true,
-            },
-          ],
           ["@babel/plugin-proposal-class-properties", { loose: false }],
           ["@babel/plugin-syntax-class-properties", { loose: true }],
-          [
-            "import",
-            {
-              libraryName: "antd",
-              libraryDirectory: "es",
-              // style: "css"
-              style: true,
-            },
-            "antd",
-          ],
           [
             "module-resolver",
             {
@@ -108,14 +92,13 @@ module.exports.setDefaultModule = function (config = {}) {
         loader: "sass-loader",
         options: {
           sourceMap: true,
-          //   implementation: require("dart-sass"),
         },
       },
     ],
   };
 
   //内置模块
-  const rowRource = {
+  const rowSource = {
     test: /\.(txt|svg)$/i,
     type: "asset/source",
   };
@@ -147,31 +130,11 @@ module.exports.setDefaultModule = function (config = {}) {
     },
   };
 
-  const lessLoader = {
-    test: /\.less$/i,
-    use: [
-      "style-loader",
-      "css-loader", // translates CSS into CommonJS
-      {
-        loader: "less-loader", // compiles Less to CSS
-        options: {
-          lessOptions: {
-            // modifyVars: {
-            //   "primary-color": "#3bbc6e",
-            //   "border-radius-base": "2px",
-            // },
-            javascriptEnabled: true,
-          },
-        },
-      },
-    ],
-  };
 
   rules.push(
-    rowRource,
+    rowSource,
     babelLoader,
     styleLoader,
-    lessLoader,
     assetResource,
     fontAsset,
   );
